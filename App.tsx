@@ -1,21 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { onValue } from "./firebase";
+import findMaths, { AllMaths } from "./maths";
+import DataForm from './DataForm'
 
-export default function App() {
+interface Dataset {
+  data: number[];
+}
+
+const TandemApp = () => {
+  const [dataIndex, updateDataIndex] = React.useState<number>(0);
+  const [datasets, updateDatasets] = React.useState<DataSet[]>([]);
+  React.useEffect(() => {
+    onValue("datasets", (val: Dataset[]) => updateDatasets(val));
+  }, []);
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      {datasets[dataIndex] && <DataForm maths={findMaths(datasets[dataIndex].data)} dataIndex={dataIndex} />}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
+
+export default TandemApp;
