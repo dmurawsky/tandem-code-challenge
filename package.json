@@ -7,7 +7,7 @@
     "web": "expo start --web",
     "test": "jest",
     "eject": "expo eject",
-    "deploy:expo": "",
+    "deploy:expo": "expo publish",
     "deploy:web": "expo build:web && now web-build --prod"
   },
   "dependencies": {
