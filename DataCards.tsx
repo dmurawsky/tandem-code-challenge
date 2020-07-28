@@ -12,7 +12,7 @@ interface DataCardsProps {
   maths: AllMaths
 }
 
-const DataCard = ({ value, title }: DataCardProps) => (
+export const DataCard = ({ value, title }: DataCardProps) => (
   <Card style={styles.card}>
     <Text category='h6'>{value}</Text>
     <Text style={{ color: "#888" }}>{title}</Text>

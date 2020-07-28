@@ -1,8 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { AllMaths } from "./maths";
 import { firebaseSet } from "./firebase";
-import { Button, Text, Input } from '@ui-kitten/components';
+import { Button, Input } from '@ui-kitten/components';
 
 
 interface Props {

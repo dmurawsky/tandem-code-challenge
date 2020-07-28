@@ -6,10 +6,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest",
-    "eject": "expo eject"
-  },
-  "jest": {
-    "preset": "react-native"
+    "eject": "expo eject",
+    "deploy:expo": "",
+    "deploy:web": "expo build:web && now web-build --prod"
   },
   "dependencies": {
     "@eva-design/eva": "^2.0.0",
@@ -24,8 +23,10 @@
     "react-native-web": "~0.11.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.6",
+    "@babel/core": "^7.10.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
+    "@expo/webpack-config": "^0.12.20",
     "@types/jest": "^26.0.7",
     "@types/react": "~16.9.41",
     "@types/react-dom": "^16.9.8",
