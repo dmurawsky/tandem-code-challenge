@@ -1,33 +1,52 @@
 import React from "react";
-import { StyleSheet, View, Button } from "react-native";
+import { StyleSheet } from "react-native";
+import * as eva from '@eva-design/eva';
+import {
+  ApplicationProvider,
+  Layout,
+  Select,
+  SelectItem,
+  IndexPath
+} from '@ui-kitten/components';
 import { onValue } from "./firebase";
 import findMaths from "./maths";
 import DataForm from './DataForm'
+import DataCards from "./DataCards";
 
 interface Dataset {
   data: number[];
 }
 
 const TandemApp = () => {
-  const [dataIndex, updateDataIndex] = React.useState<number>(0);
+  const [dataIndex, updateDataIndex] = React.useState<IndexPath | IndexPath[]>(new IndexPath(0));
   const [datasets, updateDatasets] = React.useState<DataSet[]>([]);
   React.useEffect(() => {
     onValue("datasets", (val: Dataset[]) => updateDatasets(val));
   }, []);
   return (
-    <View style={styles.container}>
-      {datasets.map((_, i) => <Button key={`button${i}`} color={i === dataIndex ? "#841584" : "#888"} title={`Day ${i + 1}`} onPress={() => updateDataIndex(i)} />)}
-      {datasets[dataIndex] && <DataForm maths={findMaths(datasets[dataIndex].data)} dataIndex={dataIndex} dataLength={datasets[dataIndex].data.length} />}
-    </View>
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <Layout style={styles.container} level='1'>
+        <Select
+          style={styles.select}
+          selectedIndex={dataIndex}
+          value={`Day ${dataIndex.row + 1}`}
+          onSelect={index => updateDataIndex(index)}>
+          {datasets.map((_, i) => <SelectItem key={`button${i}`} title={`Day ${i + 1}`} />)}
+        </Select>
+        <DataCards maths={findMaths(datasets[dataIndex.row].data)} />
+        {datasets[dataIndex.row] && <DataForm dataIndex={dataIndex.row} dataLength={datasets[dataIndex.row].data.length} />}
+      </Layout>
+    </ApplicationProvider>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    minHeight: 128,
+    margin: 35
+  },
+  select: {
+    marginVertical: 15
   },
 });
 

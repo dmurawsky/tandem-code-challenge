@@ -36,8 +36,8 @@ const findMode = (numbers: number[]): number[] => {
 }
 
 export default (numbers: number[]): AllMaths => ({
-  mean: Number(findMean(numbers).toFixed(2)),
+  mean: findMean(numbers),
   median: findMedian(numbers),
-  standardDeviation: Number(findStandardDeviation(numbers).toFixed(2)),
+  standardDeviation: findStandardDeviation(numbers),
   mode: findMode(numbers),
 })

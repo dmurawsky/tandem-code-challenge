@@ -1,37 +1,34 @@
 import React from "react";
-import { StyleSheet, TextInput, View, Text, Button } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { AllMaths } from "./maths";
 import { firebaseSet } from "./firebase";
+import { Button, Text, Input } from '@ui-kitten/components';
+
 
 interface Props {
-  maths: AllMaths
   dataIndex: number
   dataLength: number
 }
 
-const DataForm = ({ maths, dataIndex, dataLength }: Props) => {
+const DataForm = ({ dataIndex, dataLength }: Props) => {
   const [value, onChangeText] = React.useState('');
 
   return (
-    <View>
-      <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-        onChangeText={text => onChangeText(text)}
-        keyboardType="number-pad"
+    <View style={styles.container}>
+      <Input
+        placeholder='Add new data'
         value={value}
+        keyboardType="number-pad"
+        onChangeText={text => onChangeText(text)}
       />
-      <Button title="Add" onPress={() => firebaseSet(`datasets/${dataIndex}/data/${dataLength}`, Number(value), () => onChangeText(''))} />
-      <Text>{JSON.stringify(maths, null, 2)}</Text>
+      <Button size="small" onPress={() => firebaseSet(`datasets/${dataIndex}/data/${dataLength}`, Number(value), () => onChangeText(''))}>Add</Button>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    marginVertical: 15,
   },
 });
 
