@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View, Button } from "react-native";
 import { onValue } from "./firebase";
-import findMaths, { AllMaths } from "./maths";
+import findMaths from "./maths";
 import DataForm from './DataForm'
 
 interface Dataset {
@@ -16,7 +16,8 @@ const TandemApp = () => {
   }, []);
   return (
     <View style={styles.container}>
-      {datasets[dataIndex] && <DataForm maths={findMaths(datasets[dataIndex].data)} dataIndex={dataIndex} />}
+      {datasets.map((_, i) => <Button key={`button${i}`} color={i === dataIndex ? "#841584" : "#888"} title={`Day ${i + 1}`} onPress={() => updateDataIndex(i)} />)}
+      {datasets[dataIndex] && <DataForm maths={findMaths(datasets[dataIndex].data)} dataIndex={dataIndex} dataLength={datasets[dataIndex].data.length} />}
     </View>
   );
 };

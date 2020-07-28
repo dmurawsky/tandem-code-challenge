@@ -21,5 +21,5 @@ export const onValue = (path: string, cb: (val: any) => void) =>
 export const offValue = (path: string) =>
   firebase.database().ref(path).off("value");
 
-export const firebaseUpdate = (path: string, obj: { [key: string]: any }) =>
-  firebase.database().ref(path).update(obj);
+export const firebaseSet = (path: string, val: any, cb: () => void) =>
+  firebase.database().ref(path).set(val, cb);

@@ -1,24 +1,27 @@
 import React from "react";
-import { StyleSheet, TextInput, View, Text } from "react-native";
+import { StyleSheet, TextInput, View, Text, Button } from "react-native";
 import { AllMaths } from "./maths";
-// import { firebaseUpdate } from "./firebase";
+import { firebaseSet } from "./firebase";
 
 interface Props {
   maths: AllMaths
   dataIndex: number
+  dataLength: number
 }
 
-const DataForm = ({ maths, dataIndex }: Props) => {
-  const [value, onChangeText] = React.useState('Useless Placeholder');
+const DataForm = ({ maths, dataIndex, dataLength }: Props) => {
+  const [value, onChangeText] = React.useState('');
 
   return (
     <View>
-      <Text>{JSON.stringify(maths, null, 2)}</Text>
       <TextInput
         style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={text => onChangeText(text)}
+        keyboardType="number-pad"
         value={value}
       />
+      <Button title="Add" onPress={() => firebaseSet(`datasets/${dataIndex}/data/${dataLength}`, Number(value), () => onChangeText(''))} />
+      <Text>{JSON.stringify(maths, null, 2)}</Text>
     </View>
   );
 };
